@@ -1,0 +1,99 @@
+<h1 id="seqacademy" style="text-align: center;">SeqAcademy</h1>
+<p style="text-align: center;">(pronounced "seek academy")</p>
+<img class=" size-full wp-image-13 aligncenter" src="https://seqacademy.files.wordpress.com/2018/11/seqacademy.png" alt="seqacademy" width="186" height="105" />
+<h2 id="an-easy-to-use-all-in-one-jupyter-notebook-tutorial-for-the-rna-seq-and-chip-seq-pipeline" style="text-align: center;">An easy-to-use, all-in-one tutorial for bioinformatics analyses.</h2>
+<a href="#how-do-i-use-seqacademy">Ready to get going? Jump to "How do I use SeqAcademy?" and get started!</a>
+
+<b>Keywords</b>: <i>RNA-Seq, ChIP-Seq, alignment, differential gene expression, peak-calling, education, tutorial, pipeline</i>
+<h2 id="what-is-seqacademy">What is SeqAcademy?</h2>
+SeqAcademy is a resource for anyone - regardless of skill level - to perform bioinformatics research. It is user-friendly notebook-based educational pipeline for RNA-Seq and ChIP-Seq data analysis. Bioinformaticians use RNA-Seq and ChIP-Seq analyses, respectively, to study RNA and protein interactions within genomes.
+
+RNA-Seq and ChIP-Seq experiments generate large amounts of data and rely on pipelines for efficient analysis. However, existing tools perform specific portions of the pipeline or offer a complete pipeline solution for the advanced programmer.
+
+SeqAcademy addresses these problems by providing an easy to use tutorial that outlines the complete RNA-Seq and ChIP-Seq analysis workflow and requires no prior programming experience.
+
+Created by <a href="http://hussainather.com">Hussain Ather</a> (shussainather [at] gmail [dot] com)
+<h2 id="who-is-seqacademy-for">Who is SeqAcademy for?</h2>
+SeqAcademy is for students and researchers with little to no bioinformatics experience interested in hands-on bioinformatics tutorials. Anyone will feel comfortable analyzing epigenomic and RNA-Seq data using this simple educational tool.
+<h2 id="what-does-seqacademy-teach">What does SeqAcademy teach?</h2>
+<img class="alignnone size-full wp-image-41" src="https://seqacademy.files.wordpress.com/2018/11/pipeline1.png" alt="pipeline" width="800" height="600" />
+
+This tutorial works using HISAT2 aligner to align sample reads to a reference.
+
+<img class="alignnone size-full wp-image-17" src="https://seqacademy.files.wordpress.com/2018/11/alignment.png" alt="alignment" width="1694" height="632" />
+
+It uses quantification methods (such as salmon for RNA-Seq and peak-calling for ChIP-Seq) to quantify expression and determine protein-binding.
+
+<img class="alignnone size-full wp-image-35" src="https://seqacademy.files.wordpress.com/2018/11/quantify.png" alt="quantify" width="637" height="406" />
+
+The output is analyzed (differential gene expression for RNA-Seq and peak analysis for ChIP-seq), and the results are visualized.
+
+Then it performs MultiQC to extract quality control information from the aligned reads.
+
+<img class="alignnone size-full wp-image-34" src="https://seqacademy.files.wordpress.com/2018/11/qc.png" alt="qc" width="847" height="316" />
+
+The model organism for this project is Yeast i.e. <i>Saccharomyces cerevisiae</i>. For RNA-Seq, yeast data between euploid and aneuoploid conditions will be compared. For ChIP-Seq, yeast data between 3AT-treated and untreated conditions will be compared.
+<h2 id="how-do-i-use-seqacademy">How do I use SeqAcademy?</h2>
+<ol style="list-style-type: decimal;">
+	<li>Identify and open the terminal emulator program on your computer. Mac and Linux systems come with Terminal installed, and Windows systems come with Console. If there isn't one installed, download one online.</li>
+	<li>Type <code>pwd</code> and press enter. This command shows what your current working directory is. Typing commands and pressing enter will be the primary way of running commands in this tutorial. Type <code>ls</code> to display which directories and files are in this current directory.</li>
+	<li>If you'd like to use the tutorial in this current working directory, skip to step 5. Otherwise, you may make a new directory or move to another one. To make a new directory, run <code>mkdir DIRECTORY</code> in which DIRECTORY is the name of the directory you'd like to make. To move to another directory, run <code>cd DIRECTORY</code> in which DIRECTORY is the name of the DIRECTORY you'd like to move to. To move up a directory, run <code>cd ..</code>.</li>
+	<li>Given the disk space and RAM requirements, it's likely you'll want to use a virtual machine for this tutorial. To connect to a virtual machine, make sure you use your own domain name or IP address.</li>
+</ol>
+If you know the hostname you'd like to connect to, run <code>ssh -L PORTNUMBER:localhost:PORTNUMBER USERNAME@HOSTNAME</code> in which PORTNUMBER is a chosen unique identifable number, USERNAME is your username, and HOSTNAME is your hostname.
+
+If you know the IP you'd like to connect to, run <code>ssh -L PORTNUMBER:localhost:PORTNUMBER USERNAME@IP</code> in which IP is the IP address of the machine you wish to connect to.
+<ol style="list-style-type: decimal;" start="5">
+	<li>Download anaconda (https://www.anaconda.com/download/) and git (https://git-scm.com/downloads).</li>
+	<li>Run <code>git clone https://github.com/NCBI-Hackathons/seqacademy.git</code> to clone the directory such that you can download the tutorial. This will download a folder called <code>seqacademy</code>.</li>
+	<li>Before running any programs, we'll make sure that each software is installed correctly. This tutorial uses Bioconda (https://bioconda.github.io/). Bioconda is a channel for the conda package manager specializing in bioinformatics software. The available packages are listed here: https://bioconda.github.io/recipes.html#recipes.</li>
+</ol>
+You will need to add the bioconda channel as well as the other channels bioconda depends on. It is important to add them in this order so that the priority is set correctly (that is, bioconda is highest priority).
+
+The conda-forge channel contains many general-purpose packages not already found in the defaults channel. The r channel is only included due to backward compatibility. It is not mandatory, but without the r channel packages compiled against R 3.3.1 might not work.
+
+This tutorial uses cells written in python, R, and unix to perform its analyses.
+
+Run the following three lines in command line in the following order:
+
+<code>conda config --add channels defaults</code> <code>conda config --add channels conda-forge</code> <code>conda config --add channels bioconda</code>
+
+In this tutorial we will create an environment named "tutorial" and install the packages in there. Environments offer ways of installing packages in specific environments so they can be managed and run for different specifications. You can create, export, list, remove and update environments that have different versions of Python and/or packages installed in them. Switching or moving between environments is called activating the environment. You can also share an environment file.
+
+This command will create an environment "tutorial" in which to install the packages used in this tutorial.
+
+Run the following commands to create the environment. The <code>-n</code> flag specifies the name of the environment to create (which is called "tutorial") and the list of packages following the name are the packages that will be installed in the "tutorial" environment. This will most likely take 10-15 minutes.
+
+<code>conda create -n tutorial jupyter hisat2 multiqc macs2 bioconductor-deseq matplotlib ggplot samtools bioconductor-rsamtools bedtools htseq  --yes</code>
+
+Then activate the environment with the following command:
+
+For Mac and Linux
+
+<code>source activate tutorial</code>
+
+or
+
+<code>conda activate tutorial</code>
+
+For Windows
+
+<code>activate tutorial</code>
+<h1 id="begin-the-tutorial">Begin the tutorial</h1>
+Follow the instructions in <code>rnaseq.md</code> or <code>chipseq.md</code> for the corresponding tutorial.
+<h2 id="rna-seq">RNA-Seq</h2>
+The following data presents the RNA-Seq data used in this tutorial. This tutorial observes RNA-Seq data of aneuploidy in Yeast (source: https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP106028).
+<img class="alignnone size-full wp-image-31" src="https://seqacademy.files.wordpress.com/2018/11/pca2.png" alt="pca2" width="1148" height="1102" /><img class="alignnone size-full wp-image-30" src="https://seqacademy.files.wordpress.com/2018/11/pca1.png" alt="pca1" width="1158" height="1108" />
+Principal component analysis (PCA) suggests gene expression for euploid yeast samples (haploid) clusters distinctly from that of the aneuploid yeast samples (diploid chromosome X).The first two PCs account for ~70% of the variance in expressed genes). Data provided by Mulla et al. (https://elifesciences.org/articles/27991).
+<img class="alignnone size-full wp-image-20" src="https://seqacademy.files.wordpress.com/2018/11/barplot_sig.png" alt="barplot_sig" width="1800" height="1200" />
+A volcano plot of differentially expressed genes between euploid yeast colonies versus aneuploid yeast colonies. The x-axis represents the difference in gene expression between the conditions. False discovery rate (FDR), a method for controlling for multiple testing, is along the y-axis. Each point represents a tested gene (N=3,926). Red points are those reaching genome-wide significance (at FDR0.05, N=3,263). Data provided by Mulla et al. (https://elifesciences.org/articles/27991).
+<img class="alignnone size-full wp-image-40" src="https://seqacademy.files.wordpress.com/2018/11/volcanoplot.png" alt="volcanoplot" width="622" height="622" />
+The relative enrichment of chrX for differentially expressed genes suggests the downstream results of this processing pipeline are consistent with biological expectations. The RNA-seq experiment was performed on yeast colonies with an extra chromosome X. Data provided by Mulla et al. (https://elifesciences.org/articles/27991).
+<h1 id="chip-seq">ChIP-Seq</h1>
+The following data presents the ChIP-Seq data used in this tutorial. This tutorial observes ChIP-Seq data of induction by 3-AT in Yeast (source: https://www.ncbi.nlm.nih.gov/Traces/study/?acc=SRP132584).
+
+<img class="alignnone size-full wp-image-24" src="https://seqacademy.files.wordpress.com/2018/11/igv2.png" alt="igv2" width="956" height="340" />
+
+Distribution of intersected peaks across the yeast genome. This IGV screenshot shows in the bottom row the intersected peaks between the two treatment conditions of the yeast samples. The matching genes with each intersected peak can be analyzed.
+
+This website uses cookies.
